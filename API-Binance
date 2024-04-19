@@ -1,0 +1,25 @@
+def get_binance_rates_rub():
+    url = 'https://p2p.binance.com/bapi/c2c/v2/friendly/c2c/adv/search'
+    headers = {
+        'accept': '*/*',
+        'User_agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/110.0.0.0 Safari/537.36'}
+    params = {
+        "proMerchantAds": False,
+        "page": 1,
+        "rows": 10,
+        "payTypes": [
+            "TinkoffNew"
+        ],
+        "countries": [],
+        "publisherType": None,
+        "fiat": "RUB",
+        "tradeType": "BUY",
+        "asset": "USDT",
+        "merchantCheck": False
+    }
+    response = requests.post(url=url, headers=headers, json=params).json()
+    return response['data'][0]['adv']['price']
+
+
+print(get_binance_rates_rub())
